@@ -7,27 +7,17 @@ using namespace std;
 
 int solution(string word) {
     int answer = 0;
-    int sum = 0;
-    vector<int> weights;
-    unordered_map<char, int> alphaWeights;
-    alphaWeights.emplace('A', 0);
-    alphaWeights.emplace('E', 1);
-    alphaWeights.emplace('I', 2);
-    alphaWeights.emplace('O', 3);
-    alphaWeights.emplace('U', 4);
+    vector<int> weights = {781, 156, 31, 6, 1}; // 미리 계산한 가중치
+    unordered_map<char, int> alphaWeights = {
+        {'A', 0}, {'E', 1}, {'I', 2}, {'O', 3}, {'U', 4}
+    };
     
-    weights.reserve(5);
-    // 가중치 구해주기
-    for (int i = 0; i < 5 ; i++)
-    {
-        sum += pow(5, i);
-        weights.push_back(sum);
+		weights.reserve(5);
+    // 단어의 각 글자를 돌면서 순서 계산
+    for (int i = 0; i < word.size(); i++) {
+        answer += alphaWeights[word[i]] * weights[i] + 1; // +1은 해당 글자 자신을 포함
     }
-    // 순서 구하기
-    for (int i = 0; i < word.size(); i++)
-    {
 
-        answer += alphaWeights[word[i]] * weights[4-i] + 1;   
-    }
     return answer;
 }
+
